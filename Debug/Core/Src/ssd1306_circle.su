@@ -1,2 +1,15 @@
-../Core/Src/ssd1306_circle.c:10:6:update_circle_x	16	static
-../Core/Src/ssd1306_circle.c:23:6:update_circle_y	16	static
+../Core/Inc/ssd1306_circle.h:43:20:is_at_bottom_boundary	16	static
+../Core/Inc/ssd1306_circle.h:47:20:is_at_top_boundary	16	static
+../Core/Inc/ssd1306_circle.h:51:20:is_at_vertical_boundary	16	static
+../Core/Inc/ssd1306_circle.h:55:20:is_at_left_boundary	16	static
+../Core/Inc/ssd1306_circle.h:59:20:is_at_right_boundary	16	static
+../Core/Inc/ssd1306_circle.h:63:20:is_at_horizontal_boundary	16	static
+../Core/Src/ssd1306_circle.c:10:20:update_circle_x	24	static
+../Core/Src/ssd1306_circle.c:25:20:update_circle_y	24	static
+../Core/Src/ssd1306_circle.c:38:13:update_circle_position	16	static
+../Core/Src/ssd1306_circle.c:43:20:toggle_circle_y_mode	16	static
+../Core/Src/ssd1306_circle.c:47:20:toggle_circle_x_mode	16	static
+../Core/Src/ssd1306_circle.c:51:6:assign_random_horizontal_direction	16	static
+../Core/Src/ssd1306_circle.c:56:20:update_vertical_movement_on_hit	16	static
+../Core/Src/ssd1306_circle.c:63:20:update_horizontal_movement_on_hit	16	static
+../Core/Src/ssd1306_circle.c:69:13:update_circle_on_wall_hit	16	static

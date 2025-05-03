@@ -27,8 +27,6 @@
 #include "ssd1306.h"
 #include "ssd1306_circle.h"
 
-#define SSD1306_CENTER_X (SSD1306_WIDTH / 2)
-
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,33 +64,6 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-bool is_at_bottom_boundary(const Circle* circle) {
-    return circle->y >= SSD1306_HEIGHT - circle->radius;
-}
-
-bool is_at_top_boundary(const Circle* circle) {
-    return circle->y <= circle->radius;
-}
-
-bool is_at_vertical_boundary(const Circle* circle) {
-    return is_at_bottom_boundary(circle) || is_at_top_boundary(circle);
-}
-
-bool is_at_left_boundary(const Circle* circle) {
-    return circle->x <= circle->radius;
-}
-
-bool is_at_right_boundary(const Circle* circle) {
-    return circle->x >= SSD1306_WIDTH - circle->radius;
-}
-
-bool is_at_horizontal_boundary(const Circle* circle) {
-    return is_at_left_boundary(circle) || is_at_right_boundary(circle);
-}
-
-VerticalDirection toggle_circle_y_mode(VerticalDirection circle_y_mode) {
-    return circle_y_mode = !circle_y_mode;
-}
 
 /* USER CODE END 0 */
 
@@ -127,16 +98,18 @@ int main(void)
   MX_I2C1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  srand(HAL_GetTick());
   ssd1306_Init();
   ssd1306_FlipScreenVertically();
   ssd1306_Clear();
   ssd1306_SetColor(White);
 
-  Circle circle = {.radius = 10, .x = SSD1306_CENTER_X, .y = 30};
-
-  VerticalDirection vertical_direction = DOWN;
-  HorizontalDirection horizontal_direction = STRAIGHT;
+  Circle circle = {
+		  .radius = SSD1306_BALL_RADIUS,
+		  .x = SSD1306_CENTER_X,
+		  .y = SSD1306_BALL_START_Y,
+		  .movement_direction.vertical_direction = DOWN,
+		  .movement_direction.horizontal_direction = STRAIGHT,
+  };
 
   /* USER CODE END 2 */
 
@@ -149,20 +122,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  update_circle_y(&circle, vertical_direction);
-	  update_circle_x(&circle, horizontal_direction);
+	  Circle *const p_circle = &circle;
+	  update_circle_on_wall_hit(p_circle);
+	  update_circle_position(p_circle);
 
 	  ssd1306_Clear();
 	  ssd1306_FillCircle(circle.x,  circle.y, circle.radius);
-
-	  if (is_at_vertical_boundary(&circle)) {
-		  vertical_direction = toggle_circle_y_mode(vertical_direction);
-		  horizontal_direction = (HorizontalDirection) (rand() % 4);
-	  }
-
-	  if (is_at_horizontal_boundary(&circle)) {
-		  horizontal_direction = !horizontal_direction;
-	  }
 
 	  ssd1306_UpdateScreen();
   }
