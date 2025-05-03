@@ -1,0 +1,2 @@
+../Core/Src/ssd1306_circle.c:10:6:update_circle_x	16	static
+../Core/Src/ssd1306_circle.c:23:6:update_circle_y	16	static

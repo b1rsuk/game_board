@@ -1,0 +1,13 @@
+main.c:69:6:is_at_bottom_boundary	1
+main.c:73:6:is_at_top_boundary	1
+main.c:77:6:is_at_vertical_boundary	3
+main.c:81:6:is_at_left_boundary	1
+main.c:85:6:is_at_right_boundary	1
+main.c:89:6:is_at_horizontal_boundary	3
+main.c:93:19:toggle_circle_y_mode	1
+main.c:103:5:main	3
+main.c:178:6:SystemClock_Config	3
+main.c:218:13:MX_I2C1_Init	2
+main.c:252:13:MX_USART1_UART_Init	2
+main.c:285:13:MX_GPIO_Init	1
+main.c:307:6:Error_Handler	1
