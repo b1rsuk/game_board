@@ -108,13 +108,13 @@ static inline void show_game_over_screen(void) {
     ssd1306_UpdateScreen();
 }
 
-void pong_game_init(PongGameState *const pong_game_state) {
+static inline void pong_game_init(PongGameState *const pong_game_state) {
     pong_game_state->circle = init_circle();
     pong_game_state->paddle = init_paddle();
     pong_game_state->is_game_over = false;
 }
 
-void pong_game_update(PongGameState *const pong_game_state) {
+static inline void pong_game_update(PongGameState *const pong_game_state) {
     if (is_circle_at_bottom_boundary(&pong_game_state->circle)) {
         pong_game_state->is_game_over = true;
         return;
@@ -129,19 +129,19 @@ void pong_game_update(PongGameState *const pong_game_state) {
     }
 }
 
-void pong_game_render(const PongGameState *const pong_game_state) {
+static inline void pong_game_render(const PongGameState *const pong_game_state) {
     ssd1306_Clear();
     ssd1306_FillCircle(pong_game_state->circle.x, pong_game_state->circle.y, SSD1306_BALL_RADIUS);
     ssd1306_DrawHorizontalLine(pong_game_state->paddle.x, pong_game_state->paddle.y, SSD1306_PADDLE_LENGTH);
     ssd1306_UpdateScreen();
 }
 
-void pong_game_handle_game_over(void) {
+static inline void pong_game_handle_game_over(void) {
     show_game_over_screen();
     HAL_Delay(5000);
 }
 
-void pong_game(void) {
+inline void pong_game(void) {
     PongGameState pong_game_state;
     PongGameState *const p_pong_game_state = &pong_game_state;
 

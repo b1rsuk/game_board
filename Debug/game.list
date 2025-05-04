@@ -29,7 +29,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  12 .debug_info   0000be21  00000000  00000000  000200a1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001f11  00000000  00000000  0002bec2  2**0
+ 13 .debug_abbrev 00001f0f  00000000  00000000  0002bec2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  14 .debug_aranges 00000c30  00000000  00000000  0002ddd8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -1050,7 +1050,7 @@ static inline void show_game_over_screen(void) {
 
 08000700 <pong_game_init>:
 
-void pong_game_init(PongGameState *const pong_game_state) {
+static inline void pong_game_init(PongGameState *const pong_game_state) {
  8000700:	b590      	push	{r4, r7, lr}
  8000702:	b085      	sub	sp, #20
  8000704:	af00      	add	r7, sp, #0
@@ -1086,7 +1086,7 @@ void pong_game_init(PongGameState *const pong_game_state) {
 
 0800073e <pong_game_update>:
 
-void pong_game_update(PongGameState *const pong_game_state) {
+static inline void pong_game_update(PongGameState *const pong_game_state) {
  800073e:	b580      	push	{r7, lr}
  8000740:	b082      	sub	sp, #8
  8000742:	af00      	add	r7, sp, #0
@@ -1142,7 +1142,7 @@ void pong_game_update(PongGameState *const pong_game_state) {
 
 08000798 <pong_game_render>:
 
-void pong_game_render(const PongGameState *const pong_game_state) {
+static inline void pong_game_render(const PongGameState *const pong_game_state) {
  8000798:	b580      	push	{r7, lr}
  800079a:	b082      	sub	sp, #8
  800079c:	af00      	add	r7, sp, #0
@@ -1175,7 +1175,7 @@ void pong_game_render(const PongGameState *const pong_game_state) {
 
 080007d8 <pong_game_handle_game_over>:
 
-void pong_game_handle_game_over(void) {
+static inline void pong_game_handle_game_over(void) {
  80007d8:	b580      	push	{r7, lr}
  80007da:	af00      	add	r7, sp, #0
     show_game_over_screen();
@@ -1189,7 +1189,7 @@ void pong_game_handle_game_over(void) {
 
 080007ec <pong_game>:
 
-void pong_game(void) {
+inline void pong_game(void) {
  80007ec:	b580      	push	{r7, lr}
  80007ee:	b084      	sub	sp, #16
  80007f0:	af00      	add	r7, sp, #0

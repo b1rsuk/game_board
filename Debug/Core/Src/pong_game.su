@@ -19,8 +19,8 @@
 ../Core/Src/pong_game.c:92:20:update_paddle_left	16	static
 ../Core/Src/pong_game.c:98:20:move_paddle_by_input	16	static
 ../Core/Src/pong_game.c:103:20:show_game_over_screen	16	static
-../Core/Src/pong_game.c:111:6:pong_game_init	32	static
-../Core/Src/pong_game.c:117:6:pong_game_update	16	static
-../Core/Src/pong_game.c:132:6:pong_game_render	16	static
-../Core/Src/pong_game.c:139:6:pong_game_handle_game_over	8	static
-../Core/Src/pong_game.c:144:6:pong_game	24	static
+../Core/Src/pong_game.c:111:20:pong_game_init	32	static
+../Core/Src/pong_game.c:117:20:pong_game_update	16	static
+../Core/Src/pong_game.c:132:20:pong_game_render	16	static
+../Core/Src/pong_game.c:139:20:pong_game_handle_game_over	8	static
+../Core/Src/pong_game.c:144:13:pong_game	24	static
