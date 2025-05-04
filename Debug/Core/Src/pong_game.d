@@ -25,7 +25,8 @@ Core/Src/pong_game.o: ../Core/Src/pong_game.c ../Core/Inc/pong_game.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Core/Inc/ssd1306_paddle.h ../Core/Inc/pong_game.h
+ ../Core/Inc/ssd1306_paddle.h ../Core/Inc/pong_game.h \
+ ../Core/Inc/pong_game_checks.h
 ../Core/Inc/pong_game.h:
 ../Core/Inc/ssd1306_circle.h:
 ../Core/Inc/ssd1306.h:
@@ -58,3 +59,4 @@ Core/Src/pong_game.o: ../Core/Src/pong_game.c ../Core/Inc/pong_game.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 ../Core/Inc/ssd1306_paddle.h:
 ../Core/Inc/pong_game.h:
+../Core/Inc/pong_game_checks.h:
