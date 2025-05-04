@@ -11,9 +11,6 @@
 #define SSD1306_BALL_RADIUS 10
 #define SSD1306_CENTER_X (SSD1306_WIDTH / 2)
 #define SSD1306_BALL_START_Y 30
-#define LINE_START_X   (SSD1306_CENTER_X - 10)
-#define LINE_START_Y   (SSD1306_BALL_START_Y + 30)
-#define LINE_LENGTH   20
 
 #include <inttypes.h>
 #include <stdbool.h>

@@ -17,6 +17,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <ssd1306_paddle.h>
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -25,7 +26,9 @@
 #include <time.h>
 #include <stdbool.h>
 #include "ssd1306.h"
+#include "fonts.h"
 #include "ssd1306_circle.h"
+
 
 /* USER CODE END Includes */
 
@@ -64,6 +67,39 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+bool is_move_right_pressed(void) {
+    return HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_SET;
+}
+
+bool is_move_left_pressed(void) {
+    return HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_7) == GPIO_PIN_SET;
+}
+
+void update_paddle_right(Paddle *const p_paddle) {
+    if (is_move_right_pressed()) {
+        ++p_paddle->x;
+    }
+}
+
+void update_paddle_left(Paddle *const p_paddle) {
+    if (is_move_left_pressed()) {
+        --p_paddle->x;
+    }
+}
+
+
+void move_paddle_by_input(Paddle *const p_paddle) {
+	update_paddle_right(p_paddle);
+	update_paddle_left(p_paddle);
+}
+
+void show_game_over_screen(void) {
+    ssd1306_Clear();
+    ssd1306_SetCursor(0, 0);
+    FontDef font = Font_7x10;
+    ssd1306_WriteString("THE GAME IS OVER!", font);
+    ssd1306_UpdateScreen();
+}
 
 /* USER CODE END 0 */
 
@@ -110,30 +146,42 @@ int main(void)
 		  .movement_direction.horizontal_direction = STRAIGHT,
   };
 
+  Paddle paddle = {
+		  .x = SSD1306_PADDLE_START_X,
+		  .y = SSD1306_PADDLE_Y,
+  };
+  Circle *const p_circle = &circle;
+  Paddle *const p_paddle = &paddle;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  Circle *const p_circle = &circle;
+
+	  if (is_at_bottom_boundary(p_circle)) {
+		  show_game_over_screen();
+		  continue;
+	  }
+
+	  move_paddle_by_input(p_paddle);
+
 	  update_circle_on_wall_hit(p_circle);
 	  update_circle_position(p_circle);
 
 	  ssd1306_Clear();
 	  ssd1306_FillCircle(circle.x,  circle.y, SSD1306_BALL_RADIUS);
 
-
-	  ssd1306_DrawHorizontalLine(LINE_START_X, LINE_START_Y, LINE_LENGTH);
-	  if ((circle.x + SSD1306_BALL_RADIUS >= LINE_START_X && circle.x - SSD1306_BALL_RADIUS <= LINE_START_X + LINE_LENGTH) &&
-	      (circle.y + SSD1306_BALL_RADIUS >= LINE_START_Y)) {
+	  ssd1306_DrawHorizontalLine(paddle.x, paddle.y, SSD1306_PADDLE_LENGTH);
+	  if ((circle.x + SSD1306_BALL_RADIUS >= paddle.x && circle.x - SSD1306_BALL_RADIUS <= paddle.x + SSD1306_PADDLE_LENGTH) &&
+	      (circle.y + SSD1306_BALL_RADIUS >= SSD1306_PADDLE_Y)) {
 	      update_circle_on_line_hit(p_circle);
 	  }
+
 	  ssd1306_UpdateScreen();
   }
   /* USER CODE END 3 */
@@ -252,13 +300,37 @@ static void MX_USART1_UART_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 /* USER CODE BEGIN MX_GPIO_Init_1 */
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PA7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB11 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
