@@ -1,8 +1,8 @@
-../Core/Src/ssd1306_circle.c:9:20:toggle_circle_y_mode	16	static
-../Core/Src/ssd1306_circle.c:13:20:toggle_circle_x_mode	16	static
+../Core/Src/ssd1306_circle.c:9:20:toggle_circle_vertical_direction_mode	16	static
+../Core/Src/ssd1306_circle.c:13:20:toggle_circle_horizontal_direction_mode	16	static
 ../Core/Src/ssd1306_circle.c:17:20:assign_circle_random_horizontal_direction	16	static
-../Core/Src/ssd1306_circle.c:22:20:update_circle_x	24	static
-../Core/Src/ssd1306_circle.c:38:20:update_circle_y	24	static
+../Core/Src/ssd1306_circle.c:22:20:update_circle_horizontal	24	static
+../Core/Src/ssd1306_circle.c:38:20:update_circle_vertical	24	static
 ../Core/Src/ssd1306_circle.c:50:13:update_circle_position	16	static
 ../Core/Src/ssd1306_circle.c:55:13:update_vertical_movement	16	static
 ../Core/Src/ssd1306_circle.c:60:13:update_horizontal_movement	16	static

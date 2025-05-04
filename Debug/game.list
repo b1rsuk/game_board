@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_macro  0001900d  00000000  00000000  0002ea08  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_line   0000e796  00000000  00000000  00047a15  2**0
+ 16 .debug_line   0000e798  00000000  00000000  00047a15  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_str    00087b5f  00000000  00000000  000561ab  2**0
+ 17 .debug_str    00087b93  00000000  00000000  000561ad  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .comment      00000050  00000000  00000000  000ddd0a  2**0
+ 18 .comment      00000050  00000000  00000000  000ddd40  2**0
                   CONTENTS, READONLY
- 19 .debug_ranges 00000b58  00000000  00000000  000ddd60  2**3
+ 19 .debug_ranges 00000b58  00000000  00000000  000ddd90  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00003adc  00000000  00000000  000de8b8  2**2
+ 20 .debug_frame  00003adc  00000000  00000000  000de8e8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -2476,13 +2476,13 @@ static void ssd1306_WriteData(uint8_t* data, uint16_t size)
  8000f76:	bd80      	pop	{r7, pc}
  8000f78:	20000094 	.word	0x20000094
 
-08000f7c <toggle_circle_y_mode>:
+08000f7c <toggle_circle_vertical_direction_mode>:
  *  Created on: 3 мая 2025 г.
  *      Author: borsuk
  */
 #include "ssd1306_circle.h"
 
-static inline void toggle_circle_y_mode(VerticalDirection *const vertical_direction) {
+static inline void toggle_circle_vertical_direction_mode(VerticalDirection *const vertical_direction) {
  8000f7c:	b480      	push	{r7}
  8000f7e:	b083      	sub	sp, #12
  8000f80:	af00      	add	r7, sp, #0
@@ -2505,9 +2505,9 @@ static inline void toggle_circle_y_mode(VerticalDirection *const vertical_direct
  8000f9e:	bc80      	pop	{r7}
  8000fa0:	4770      	bx	lr
 
-08000fa2 <toggle_circle_x_mode>:
+08000fa2 <toggle_circle_horizontal_direction_mode>:
 
-static inline void toggle_circle_x_mode(HorizontalDirection *const horizontal_direction) {
+static inline void toggle_circle_horizontal_direction_mode(HorizontalDirection *const horizontal_direction) {
  8000fa2:	b480      	push	{r7}
  8000fa4:	b083      	sub	sp, #12
  8000fa6:	af00      	add	r7, sp, #0
@@ -2564,9 +2564,9 @@ static inline void assign_circle_random_horizontal_direction(HorizontalDirection
  8001002:	bf00      	nop
  8001004:	55555556 	.word	0x55555556
 
-08001008 <update_circle_x>:
+08001008 <update_circle_horizontal>:
 
-static inline void update_circle_x(Circle *const circle) {
+static inline void update_circle_horizontal(Circle *const circle) {
  8001008:	b480      	push	{r7}
  800100a:	b085      	sub	sp, #20
  800100c:	af00      	add	r7, sp, #0
@@ -2578,8 +2578,8 @@ static inline void update_circle_x(Circle *const circle) {
     switch(horizontal_direction) {
  8001016:	7bfb      	ldrb	r3, [r7, #15]
  8001018:	2b03      	cmp	r3, #3
- 800101a:	d820      	bhi.n	800105e <update_circle_x+0x56>
- 800101c:	a201      	add	r2, pc, #4	; (adr r2, 8001024 <update_circle_x+0x1c>)
+ 800101a:	d820      	bhi.n	800105e <update_circle_horizontal+0x56>
+ 800101c:	a201      	add	r2, pc, #4	; (adr r2, 8001024 <update_circle_horizontal+0x1c>)
  800101e:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
  8001022:	bf00      	nop
  8001024:	08001035 	.word	0x08001035
@@ -2597,7 +2597,7 @@ static inline void update_circle_x(Circle *const circle) {
  8001042:	687b      	ldr	r3, [r7, #4]
  8001044:	801a      	strh	r2, [r3, #0]
             break;
- 8001046:	e00a      	b.n	800105e <update_circle_x+0x56>
+ 8001046:	e00a      	b.n	800105e <update_circle_horizontal+0x56>
         case LEFT:
             --circle->x;
  8001048:	687b      	ldr	r3, [r7, #4]
@@ -2609,7 +2609,7 @@ static inline void update_circle_x(Circle *const circle) {
  8001056:	687b      	ldr	r3, [r7, #4]
  8001058:	801a      	strh	r2, [r3, #0]
             break;
- 800105a:	e000      	b.n	800105e <update_circle_x+0x56>
+ 800105a:	e000      	b.n	800105e <update_circle_horizontal+0x56>
         case STRAIGHT:
             break;
  800105c:	bf00      	nop
@@ -2623,9 +2623,9 @@ static inline void update_circle_x(Circle *const circle) {
  8001064:	bc80      	pop	{r7}
  8001066:	4770      	bx	lr
 
-08001068 <update_circle_y>:
+08001068 <update_circle_vertical>:
 
-static inline void update_circle_y(Circle *const circle) {
+static inline void update_circle_vertical(Circle *const circle) {
  8001068:	b480      	push	{r7}
  800106a:	b085      	sub	sp, #20
  800106c:	af00      	add	r7, sp, #0
@@ -2637,9 +2637,9 @@ static inline void update_circle_y(Circle *const circle) {
     switch(vertical_direction) {
  8001076:	7bfb      	ldrb	r3, [r7, #15]
  8001078:	2b00      	cmp	r3, #0
- 800107a:	d00b      	beq.n	8001094 <update_circle_y+0x2c>
+ 800107a:	d00b      	beq.n	8001094 <update_circle_vertical+0x2c>
  800107c:	2b01      	cmp	r3, #1
- 800107e:	d113      	bne.n	80010a8 <update_circle_y+0x40>
+ 800107e:	d113      	bne.n	80010a8 <update_circle_vertical+0x40>
         case DOWN:
             ++circle->y;
  8001080:	687b      	ldr	r3, [r7, #4]
@@ -2651,7 +2651,7 @@ static inline void update_circle_y(Circle *const circle) {
  800108e:	687b      	ldr	r3, [r7, #4]
  8001090:	805a      	strh	r2, [r3, #2]
             break;
- 8001092:	e009      	b.n	80010a8 <update_circle_y+0x40>
+ 8001092:	e009      	b.n	80010a8 <update_circle_vertical+0x40>
         case UP:
             --circle->y;
  8001094:	687b      	ldr	r3, [r7, #4]
@@ -2679,12 +2679,12 @@ inline void update_circle_position(Circle *const circle) {
  80010b4:	b082      	sub	sp, #8
  80010b6:	af00      	add	r7, sp, #0
  80010b8:	6078      	str	r0, [r7, #4]
-    update_circle_x(circle);
+    update_circle_horizontal(circle);
  80010ba:	6878      	ldr	r0, [r7, #4]
- 80010bc:	f7ff ffa4 	bl	8001008 <update_circle_x>
-    update_circle_y(circle);
+ 80010bc:	f7ff ffa4 	bl	8001008 <update_circle_horizontal>
+    update_circle_vertical(circle);
  80010c0:	6878      	ldr	r0, [r7, #4]
- 80010c2:	f7ff ffd1 	bl	8001068 <update_circle_y>
+ 80010c2:	f7ff ffd1 	bl	8001068 <update_circle_vertical>
 }
  80010c6:	bf00      	nop
  80010c8:	3708      	adds	r7, #8
@@ -2698,11 +2698,11 @@ inline void update_vertical_movement(Circle *const circle) {
  80010d0:	b082      	sub	sp, #8
  80010d2:	af00      	add	r7, sp, #0
  80010d4:	6078      	str	r0, [r7, #4]
-    toggle_circle_y_mode(&circle->movement_direction.vertical_direction);
+	toggle_circle_vertical_direction_mode(&circle->movement_direction.vertical_direction);
  80010d6:	687b      	ldr	r3, [r7, #4]
  80010d8:	3304      	adds	r3, #4
  80010da:	4618      	mov	r0, r3
- 80010dc:	f7ff ff4e 	bl	8000f7c <toggle_circle_y_mode>
+ 80010dc:	f7ff ff4e 	bl	8000f7c <toggle_circle_vertical_direction_mode>
     assign_circle_random_horizontal_direction(&circle->movement_direction.horizontal_direction);
  80010e0:	687b      	ldr	r3, [r7, #4]
  80010e2:	3305      	adds	r3, #5
@@ -2721,11 +2721,11 @@ inline void update_horizontal_movement(Circle *const circle) {
  80010f4:	b082      	sub	sp, #8
  80010f6:	af00      	add	r7, sp, #0
  80010f8:	6078      	str	r0, [r7, #4]
-    toggle_circle_x_mode(&circle->movement_direction.horizontal_direction);
+	toggle_circle_horizontal_direction_mode(&circle->movement_direction.horizontal_direction);
  80010fa:	687b      	ldr	r3, [r7, #4]
  80010fc:	3305      	adds	r3, #5
  80010fe:	4618      	mov	r0, r3
- 8001100:	f7ff ff4f 	bl	8000fa2 <toggle_circle_x_mode>
+ 8001100:	f7ff ff4f 	bl	8000fa2 <toggle_circle_horizontal_direction_mode>
 }
  8001104:	bf00      	nop
  8001106:	3708      	adds	r7, #8
