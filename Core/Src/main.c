@@ -104,7 +104,6 @@ int main(void)
   ssd1306_SetColor(White);
 
   Circle circle = {
-		  .radius = SSD1306_BALL_RADIUS,
 		  .x = SSD1306_CENTER_X,
 		  .y = SSD1306_BALL_START_Y,
 		  .movement_direction.vertical_direction = DOWN,
@@ -127,8 +126,14 @@ int main(void)
 	  update_circle_position(p_circle);
 
 	  ssd1306_Clear();
-	  ssd1306_FillCircle(circle.x,  circle.y, circle.radius);
+	  ssd1306_FillCircle(circle.x,  circle.y, SSD1306_BALL_RADIUS);
 
+
+	  ssd1306_DrawHorizontalLine(LINE_START_X, LINE_START_Y, LINE_LENGTH);
+	  if ((circle.x + SSD1306_BALL_RADIUS >= LINE_START_X && circle.x - SSD1306_BALL_RADIUS <= LINE_START_X + LINE_LENGTH) &&
+	      (circle.y + SSD1306_BALL_RADIUS >= LINE_START_Y)) {
+	      update_circle_on_line_hit(p_circle);
+	  }
 	  ssd1306_UpdateScreen();
   }
   /* USER CODE END 3 */

@@ -54,19 +54,33 @@ void assign_random_horizontal_direction(HorizontalDirection *const horizontal_di
 }
 
 static inline void update_vertical_movement_on_hit(Circle *const circle) {
-    if (is_at_vertical_boundary(circle)) {
-        toggle_circle_y_mode(&circle->movement_direction.vertical_direction);
+    	toggle_circle_y_mode(&circle->movement_direction.vertical_direction);
         assign_random_horizontal_direction(&circle->movement_direction.horizontal_direction);
-    }
+
 }
 
 static inline void update_horizontal_movement_on_hit(Circle *const circle) {
+    	toggle_circle_x_mode(&circle->movement_direction.horizontal_direction);
+}
+
+static inline void update_vertical_movement_on_wall_hit(Circle *const circle) {
+    if (is_at_vertical_boundary(circle)) {
+    	update_vertical_movement_on_hit(circle);
+    }
+}
+
+static inline void update_horizontal_movement_on_wall_hit(Circle *const circle) {
     if (is_at_horizontal_boundary(circle)) {
-        toggle_circle_x_mode(&circle->movement_direction.horizontal_direction);
+    	update_horizontal_movement_on_hit(circle);
     }
 }
 
 inline void update_circle_on_wall_hit(Circle *const circle) {
+	update_vertical_movement_on_wall_hit(circle);
+	update_horizontal_movement_on_wall_hit(circle);
+}
+
+inline void update_circle_on_line_hit(Circle *const circle) {
     update_vertical_movement_on_hit(circle);
     update_horizontal_movement_on_hit(circle);
 }
